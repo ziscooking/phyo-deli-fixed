@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
@@ -66,6 +66,13 @@ function Home() {
   return (
     <div className="p-8 font-sans">
       <h1 className="text-3xl font-bold mb-4">Phyo Deli 🛵</h1>
+
+      {/* ✅ Navigation */}
+      <div className="mb-4 flex gap-4">
+        <Link to="/login" className="text-blue-600 underline">Login</Link>
+        <Link to="/register" className="text-blue-600 underline">Register</Link>
+      </div>
+
       <p className="mb-4">Choose your favorite store:</p>
       <div className="flex flex-wrap gap-4">
         {stores.map(store => (
