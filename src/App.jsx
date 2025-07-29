@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
@@ -15,31 +15,16 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyClfejW0YHd8bF3jV_L-TjNgkyXxomEuPU",
-  authDomain: "phyo-deli-backend.firebaseapp.com",
-  projectId: "phyo-deli-backend",
-  storageBucket: "phyo-deli-backend.appspot.com",
-  messagingSenderId: "68881654411",
-  appId: "1:68881654411:web:65b1c3981b9d980c1f2a8e"
+  apiKey: "AIzaSyD1qrQpU4iONJu0AQ6ufTT5XKZvePSqaRw",
+  authDomain: "phyo-deli.firebaseapp.com",
+  projectId: "phyo-deli",
+  storageBucket: "phyo-deli.firebasestorage.app",
+  messagingSenderId: "975439089540",
+  appId: "1:975439089540:web:27a20f4267b68c055bd7d1"
 };
 
-const mockStores = [
-  {
-    id: 'store1',
-    name: 'Golden Eats',
-    category: 'Burgers & Wraps',
-    image: 'https://source.unsplash.com/400x300/?burger'
-  },
-  {
-    id: 'store2',
-    name: 'Green Garden',
-    category: 'Salads & Healthy',
-    image: 'https://source.unsplash.com/400x300/?salad'
-  }
-];
-
 function Home() {
-  const [stores, setStores] = useState(mockStores);
+  const [stores, setStores] = useState([]);
 
   useEffect(() => {
     const app = initializeApp(firebaseConfig);
@@ -54,25 +39,17 @@ function Home() {
             id: doc.id,
             ...doc.data()
           }));
-          setStores(storeList.length > 0 ? storeList : mockStores);
+          setStores(storeList);
         });
       })
       .catch((error) => {
         console.error('Firebase auth error:', error);
-        setStores(mockStores);
       });
   }, []);
 
   return (
     <div className="p-8 font-sans">
       <h1 className="text-3xl font-bold mb-4">Phyo Deli 🛵</h1>
-
-      {/* ✅ Navigation */}
-      <div className="mb-4 flex gap-4">
-        <Link to="/login" className="text-blue-600 underline">Login</Link>
-        <Link to="/register" className="text-blue-600 underline">Register</Link>
-      </div>
-
       <p className="mb-4">Choose your favorite store:</p>
       <div className="flex flex-wrap gap-4">
         {stores.map(store => (
